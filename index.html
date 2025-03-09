@@ -3,292 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tic-Tac-Toe</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <title>Pro Calculator</title>
     <style>
         body {
-            font-family: 'Roboto', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 150vh;
-            margin: 0;
-            background: linear-gradient(to right, #8360c3, #2ebf91);
-            transition: background 0.5s ease-in-out;
+            height: 99vh;
+            background: linear-gradient(135deg, #ffffff, #ffffff, #ffffff);
+            font-family: Arial, sans-serif;
+            color: rgb(255, 255, 255);
         }
-
-        .container {
+        .calculator {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
             text-align: center;
-            background: #fff;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
-            max-width: 400px;
-            width: 100%;
-            transition: background 0.5s, color 0.5s;
+            box-shadow: 0 10px 30px rgb(255, 255, 255);
+            width: 360px;
         }
-
-        h1 {
-            margin-bottom: 20px;
+        .display {
+            width: 92%;
+            height: 60px;
             font-size: 2em;
+            text-align: right;
+            padding: 15px;
+            border: none;
+            outline: 4px solid #00ff15;
+            margin-bottom: 15px;
+            background: #464444;
+            color: rgb(255, 255, 255);
+            border-radius: 8px;
         }
-
-        .board {
+        .buttons {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            margin-bottom: 20px;
         }
-
-        .cell {
-            width: 100px;
-            height: 100px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2em;
-            font-weight: bold;
-            background: #e4dddd;
-            border-radius: 10px;
-            cursor: pointer;
-            user-select: none;
-            transition: transform 0.3s, background-color 0.3s;
-        }
-
-        .cell:hover {
-            background-color: #dacccc;
-            transform: scale(1.1);
-        }
-
-        .cell.x {
-            color: #3f7bf3;
-        }
-
-        .cell.o {
-            color: #f44336;
-        }
-
-        .win {
-            background-color: #ffeb3b !important;
-            animation: blink 1s infinite alternate;
-        }
-
-        .message {
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            padding: 10px;
-            background-color: #f1f1f1;
-            border-radius: 5px;
-        }
-
         button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background-color: #2196f3;
-            color: #fff;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-            margin: 5px;
-        }
-
-        button:hover {
-            background-color: #1e88e5;
-            transform: scale(1.05);
-        }
-
-        .scoreboard {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
+            padding: 20px;
             font-size: 1.2em;
-            font-weight: bold;
-        }
-
-        /* Dark Mode Styles */
-        .dark-mode {
-            background: linear-gradient(to right, #121212, #2b2b2b);
-            color: white;
-        }
-
-        .dark-mode .container {
-            background: #222;
-            color: white;
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
-        }
-
-        .dark-mode .cell {
-            background: #333;
-            color: white;
-        }
-
-        .dark-mode .cell:hover {
-            background: #444;
-        }
-
-        .dark-mode .message {
-            background: #444;
-        }
-
-        .dark-mode button {
-            background: #444;
-            color: white;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .dark-mode button:hover {
-            background: #666;
-            transform: scale(1.1);
-        }
-
-        /* Dark Mode Toggle Button Animation */
-        .dark-mode-button {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 20px;
-            background: #ffcc00;
-            color: #333;
             border: none;
-            border-radius: 5px;
             cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background 0.5s, transform 0.3s;
-            position: relative;
-            overflow: hidden;
+            background: #2c2b2b;
+            color: rgb(255, 255, 255);
+            border-radius: 10px;
+            transition: 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
-
-        .dark-mode-button::after {
-            content: '🌙';
-            position: absolute;
-            right: 10px;
-            transition: transform 0.5s;
+        button:hover {
+            background: #313535;
         }
-
-        .dark-mode .dark-mode-button {
-            background: #666;
-            color: white;
+        button:active {
+            background: #505050;
         }
-
-        .dark-mode .dark-mode-button::after {
-            content: '☀️';
-            transform: rotate(360deg);
+        .equal {
+            background: #fffb00;
+            color: rgb(0, 0, 0);
         }
-
-        @keyframes blink {
-            0% { background-color: #ffeb3b; }
-            50% { background-color: #fff; }
-            100% { background-color: #ffeb3b; }
+        .equal:hover {
+            background: #ffe600;
+        }
+        .clear {
+            background: #e74c3c;
+        }
+        .clear:hover {
+            background: #c0392b;
+        }
+        .special {
+            background: #2980b9;
+        }
+        .special:hover {
+            background: #3498db;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Tic-Tac-Toe</h1>
-        <div class="scoreboard">
-            <span>Player X: <span id="scoreX">0</span></span>
-            <span>Player O: <span id="scoreO">0</span></span>
-        </div>
-        <div class="board" id="board">
-            <div class="cell" data-index="0"></div>
-            <div class="cell" data-index="1"></div>
-            <div class="cell" data-index="2"></div>
-            <div class="cell" data-index="3"></div>
-            <div class="cell" data-index="4"></div>
-            <div class="cell" data-index="5"></div>
-            <div class="cell" data-index="6"></div>
-            <div class="cell" data-index="7"></div>
-            <div class="cell" data-index="8"></div>
-        </div>
-        <div class="message" id="message">Player X's turn</div>
-        <button id="resetButton">Reset Game</button>
-        <button id="resetScoreButton">Reset Score</button>
-        <button id="darkModeButton" class="dark-mode-button">Toggle Dark Mode</button>
-
-        <!-- AdMob Banner Ad -->
-        <div class="ad-container">
-            <ins class="adsbygoogle"
-                style="display:block"
-                data-ad-client="ca-app-pub-3868880207637019~6398438728"
-                data-ad-slot="3943665770"
-                data-ad-format="auto"
-                data-full-width-responsive="true"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div class="buttons">
+            <button class="clear" onclick="clearDisplay()">C</button>
+            <button onclick="backspace()">←</button>
+            <button onclick="appendValue('%')">%</button>
+            <button onclick="appendValue('/')">÷</button>
+            <button onclick="appendValue('7')">7</button>
+            <button onclick="appendValue('8')">8</button>
+            <button onclick="appendValue('9')">9</button>
+            <button onclick="appendValue('*')">×</button>
+            <button onclick="appendValue('4')">4</button>
+            <button onclick="appendValue('5')">5</button>
+            <button onclick="appendValue('6')">6</button>
+            <button onclick="appendValue('-')">−</button>
+            <button onclick="appendValue('1')">1</button>
+            <button onclick="appendValue('2')">2</button>
+            <button onclick="appendValue('3')">3</button>
+            <button onclick="appendValue('+')">+</button>
+            <button onclick="appendValue('0')">0</button>
+            <button onclick="appendValue('.')">.</button>
+            <button class="special" onclick="calculateSquareRoot()">√</button>
+            <button class="equal" onclick="calculateResult()">=</button>
+            <button class="special" onclick="calculateSquare()">x²</button>
+            <button class="special" onclick="calculateCube()">x³</button>
+            <button class="special" onclick="calculateLog()">log</button>
+            <button class="special" onclick="calculateSin()">sin</button>
+            <button class="special" onclick="calculateCos()">cos</button>
+            <button class="special" onclick="calculateTan()">tan</button>
         </div>
     </div>
-    
     <script>
-        const board = document.getElementById('board');
-        const message = document.getElementById('message');
-        const resetButton = document.getElementById('resetButton');
-        const resetScoreButton = document.getElementById('resetScoreButton');
-        const darkModeButton = document.getElementById('darkModeButton');
-        let scoreX = document.getElementById('scoreX');
-        let scoreO = document.getElementById('scoreO');
-        let cells = Array.from(document.querySelectorAll('.cell'));
-        let currentPlayer = 'X';
-        let gameOver = false;
-        let scores = { X: 0, O: 0 };
-
-        const winningCombinations = [
-            [0, 1, 2], [3, 4, 5], [6, 7, 8],
-            [0, 3, 6], [1, 4, 7], [2, 5, 8],
-            [0, 4, 8], [2, 4, 6]
-        ];
-
-        function checkWinner() {
-            for (let combination of winningCombinations) {
-                const [a, b, c] = combination;
-                if (cells[a].textContent && cells[a].textContent === cells[b].textContent && cells[a].textContent === cells[c].textContent) {
-                    combination.forEach(index => cells[index].classList.add('win'));
-                    return cells[a].textContent;
-                }
-            }
-            return null;
+        function appendValue(value) {
+            document.getElementById("display").value += value;
         }
-
-        function handleCellClick(event) {
-            const cell = event.target;
-            if (cell.textContent || gameOver) return;
-
-            cell.textContent = currentPlayer;
-            cell.classList.add(currentPlayer.toLowerCase());
-
-            const winner = checkWinner();
-            if (winner) {
-                message.textContent = `Player ${winner} wins!`;
-                scores[winner]++;
-                scoreX.textContent = scores.X;
-                scoreO.textContent = scores.O;
-                gameOver = true;
-            } else if (cells.every(cell => cell.textContent)) {
-                message.textContent = "It's a draw!";
-                gameOver = true;
-            } else {
-                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-                message.textContent = `Player ${currentPlayer}'s turn`;
+        function clearDisplay() {
+            document.getElementById("display").value = "";
+        }
+        function backspace() {
+            let display = document.getElementById("display");
+            display.value = display.value.slice(0, -1);
+        }
+        function calculateResult() {
+            try {
+                document.getElementById("display").value = eval(document.getElementById("display").value);
+            } catch {
+                document.getElementById("display").value = "Error";
             }
         }
-
-        function resetGame() {
-            cells.forEach(cell => {
-                cell.textContent = '';
-                cell.classList.remove('x', 'o', 'win');
-            });
-            currentPlayer = 'X';
-            gameOver = false;
-            message.textContent = `Player ${currentPlayer}'s turn`;
+        function calculateSquareRoot() {
+            let display = document.getElementById("display");
+            display.value = Math.sqrt(parseFloat(display.value));
         }
-
-        cells.forEach(cell => cell.addEventListener('click', handleCellClick));
-        darkModeButton.addEventListener('click', () => document.body.classList.toggle('dark-mode'));
-        resetButton.addEventListener('click', resetGame);
-        resetScoreButton.addEventListener('click', () => { scores.X = 0; scores.O = 0; scoreX.textContent = 0; scoreO.textContent = 0; });
+        function calculateSquare() {
+            let display = document.getElementById("display");
+            display.value = Math.pow(parseFloat(display.value), 2);
+        }
+        function calculateCube() {
+            let display = document.getElementById("display");
+            display.value = Math.pow(parseFloat(display.value), 3);
+        }
+        function calculateLog() {
+            let display = document.getElementById("display");
+            display.value = Math.log10(parseFloat(display.value));
+        }
+        function calculateSin() {
+            let display = document.getElementById("display");
+            display.value = Math.sin(parseFloat(display.value) * Math.PI / 180);
+        }
+        function calculateCos() {
+            let display = document.getElementById("display");
+            display.value = Math.cos(parseFloat(display.value) * Math.PI / 180);
+        }
+        function calculateTan() {
+            let display = document.getElementById("display");
+            display.value = Math.tan(parseFloat(display.value) * Math.PI / 180);
+        }
     </script>
 </body>
 </html>
